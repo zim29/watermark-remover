@@ -93,6 +93,11 @@ def process_image_with_lama(image, mask, model_manager):
     )
     result = model_manager(image, mask, config)
 
+    # Ensure result is in the correct format
+    if result.dtype in [np.float64, np.float32]:
+        result = np.clip(result, 0, 255)
+        result = result.astype(np.uint8)
+
     print(time.strftime('%Y-%m-%d %H:%M:%S'), "Completed processing with LaMa model.")
     return result
 
