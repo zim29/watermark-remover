@@ -24,7 +24,7 @@ def run_example(task_prompt: TaskType, image, text_input, model, processor, devi
     print(time.strftime('%Y-%m-%d %H:%M:%S'), f"Running example with text input: {text_input}")
     prompt = task_prompt.value + text_input
     inputs = processor(text=prompt, images=image, return_tensors="pt")
-    inputs = {k: v.to(device).to(torch.float16) if k != "input_ids" else v.to(device).to(torch.int64) for k, v in inputs.items()}
+    inputs = {k: v.to(device).to(torch.float64) if k != "input_ids" else v.to(device).to(torch.int64) for k, v in inputs.items()}
 
     generated_ids = model.generate(
         input_ids=inputs["input_ids"],
@@ -136,7 +136,7 @@ def main():
 
     print(time.strftime('%Y-%m-%d %H:%M:%S'), "Loading Florence2 model and processor...")
     florence_model = AutoModelForCausalLM.from_pretrained(
-        'microsoft/Florence-2-large', trust_remote_code=True, torch_dtype=torch.float16
+        'microsoft/Florence-2-large', trust_remote_code=True, torch_dtype=torch.float64
     ).to(device)
     florence_model.eval()
     florence_processor = AutoProcessor.from_pretrained('microsoft/Florence-2-large', trust_remote_code=True)
