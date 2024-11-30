@@ -2,7 +2,7 @@ import sys
 import os
 import cv2
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageEnhance
 from transformers import AutoProcessor, AutoModelForCausalLM
 from lama_cleaner.model_manager import ModelManager
 from lama_cleaner.schema import Config, HDStrategy, LDMSampler
@@ -157,6 +157,9 @@ def main():
         except Exception as e:
             print(time.strftime('%Y-%m-%d %H:%M:%S'), f"Failed to load image {image_path}. Skipping. Error: {e}")
             continue
+        enhancer = ImageEnhance.Contrast(image)
+        image = enhancer.enhance(2.0)
+        image.save('higher_contrast.png')
 
         # Generate watermark mask
         print(time.strftime('%Y-%m-%d %H:%M:%S'), "Generating watermark mask...")
