@@ -55,8 +55,8 @@ def get_watermark_mask(image, model, processor, device, text_inputs, image_name)
     total_image_area = image_width * image_height
 
     # Bounding box centrado
-    box_width = int(image_width * 0.3)
-    box_height = int(image_height * 0.3)
+    box_width = int(image_width * 0.25)
+    box_height = int(image_height * 0.25)
     x_center = image_width // 2
     y_center = image_height // 2
     x1_centered = x_center - box_width // 2
