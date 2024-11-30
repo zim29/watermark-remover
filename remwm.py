@@ -29,7 +29,7 @@ def run_example(task_prompt: TaskType, image, text_input, model, processor, devi
     generated_ids = model.generate(
         input_ids=inputs["input_ids"],
         pixel_values=inputs["pixel_values"],
-        max_new_tokens=1024,
+        max_new_tokens=1048,
         early_stopping=False,
         do_sample=False,
         num_beams=3,
@@ -55,7 +55,7 @@ def get_watermark_mask(image, model, processor, device, text_inputs):
     total_image_area = image_width * image_height
 
     # Bounding box centrado
-    box_width = int(image_width * 0.4)
+    box_width = int(image_width * 0.3)
     box_height = int(image_height * 0.3)
     x_center = image_width // 2
     y_center = image_height // 2
