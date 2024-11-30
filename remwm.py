@@ -68,7 +68,7 @@ def get_watermark_mask(image, model, processor, device, text_inputs):
                 bbox_area = (x2 - x1) * (y2 - y1)
 
                 # If the area of the bounding box is less than 10% of the image area, include it in the mask
-                if bbox_area <= 0.1 * total_image_area:
+                if bbox_area <= 0.3 * total_image_area:
                     draw.rectangle([x1, y1, x2, y2], fill=255)
                     print(time.strftime('%Y-%m-%d %H:%M:%S'), f'Drawing bounding box: {bbox}')  # Draw a white rectangle on the mask
                     print(time.strftime('%Y-%m-%d %H:%M:%S'), f"Added bounding box to mask: {bbox}")
