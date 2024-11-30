@@ -100,7 +100,7 @@ def process_image_with_lama(image, mask, model_manager):
         ldm_steps=50,  # Increased steps for higher quality
         ldm_sampler=LDMSampler.ddim,
         hd_strategy=HDStrategy.CROP,  # Use CROP strategy for higher quality
-        hd_strategy_crop_margin=64,  # Increase crop margin to provide more context
+        hd_strategy_crop_margin=150,  # Increase crop margin to provide more context
         hd_strategy_crop_trigger_size=800,  # Higher trigger size for larger images
         hd_strategy_resize_limit=1600,  # Increase limit for processing larger images
     )
@@ -174,7 +174,7 @@ def main():
         # Generate watermark mask
         print(time.strftime('%Y-%m-%d %H:%M:%S'), "Generating watermark mask...")
         mask_image = get_watermark_mask(image, florence_model, florence_processor, device, text_inputs)
-        mask_image.save("mask.png")
+        mask_image.save(image_path)
         # Process image with LaMa
         print(time.strftime('%Y-%m-%d %H:%M:%S'), "Processing image to remove watermarks...")
         result_image = process_image_with_lama(np.array(image), np.array(mask_image), model_manager)
