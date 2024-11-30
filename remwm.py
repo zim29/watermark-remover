@@ -146,7 +146,7 @@ def main():
     model_manager = ModelManager(name="lama", device=device)
 
     # Process each image in the input directory
-    text_inputs = ['logo', 'watermark', 'text', 'logo', 'watermark', 'text']
+    text_inputs = ['logo', 'watermark', 'text']
 
     for image_path in image_paths:
         print(time.strftime('%Y-%m-%d %H:%M:%S'), f"Processing image: {image_path}")
