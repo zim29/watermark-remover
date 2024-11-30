@@ -89,7 +89,8 @@ def get_watermark_mask(image, model, processor, device, text_inputs):
                     print(time.strftime('%Y-%m-%d %H:%M:%S'), f"Skipping region: Bounding box covers more than 10% of the image. BBox Area: {bbox_area}, Image Area: {total_image_area}")
         else:
             print(time.strftime('%Y-%m-%d %H:%M:%S'), f"No bounding boxes found in parsed answer for text input '{text_input}'.")
-
+    
+    masks_directory = 'masks'
     # Asegúrate de que la carpeta `masks` exista
     if not os.path.exists(masks_directory):
         os.makedirs(masks_directory)
