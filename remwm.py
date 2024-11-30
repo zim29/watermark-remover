@@ -90,6 +90,15 @@ def get_watermark_mask(image, model, processor, device, text_inputs):
         else:
             print(time.strftime('%Y-%m-%d %H:%M:%S'), f"No bounding boxes found in parsed answer for text input '{text_input}'.")
 
+    # Asegúrate de que la carpeta `masks` exista
+    if not os.path.exists(masks_directory):
+        os.makedirs(masks_directory)
+
+    # Guarda la máscara con el mismo nombre que la imagen original
+    mask_path = os.path.join(masks_directory, image_name)
+    mask.save(mask_path)
+    print(time.strftime('%Y-%m-%d %H:%M:%S'), f"Máscara guardada en: {mask_path}")
+    
     print(time.strftime('%Y-%m-%d %H:%M:%S'), "Completed watermark mask generation.")
     return mask
 
@@ -174,6 +183,7 @@ def main():
         # Generate watermark mask
         print(time.strftime('%Y-%m-%d %H:%M:%S'), "Generating watermark mask...")
         mask_image = get_watermark_mask(image, florence_model, florence_processor, device, text_inputs)
+        continue
         # Process image with LaMa
         print(time.strftime('%Y-%m-%d %H:%M:%S'), "Processing image to remove watermarks...")
         result_image = process_image_with_lama(np.array(image), np.array(mask_image), model_manager)
