@@ -161,7 +161,7 @@ def main():
         # Generate watermark mask
         print(time.strftime('%Y-%m-%d %H:%M:%S'), "Generating watermark mask...")
         mask_image = get_watermark_mask(image, florence_model, florence_processor, device, text_inputs)
-
+        mask_image.save("mask.png")
         # Process image with LaMa
         print(time.strftime('%Y-%m-%d %H:%M:%S'), "Processing image to remove watermarks...")
         result_image = process_image_with_lama(np.array(image), np.array(mask_image), model_manager)
