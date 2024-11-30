@@ -50,9 +50,22 @@ def get_watermark_mask(image, model, processor, device, text_inputs):
     mask = Image.new("L", image.size, 0)  # "L" mode for single-channel grayscale
     draw = ImageDraw.Draw(mask)
 
-    # Get image dimensions
+    # Obtener dimensiones de la imagen
     image_width, image_height = image.size
     total_image_area = image_width * image_height
+
+    # Bounding box centrado
+    box_width = int(image_width * 0.4)
+    box_height = int(image_height * 0.2)
+    x_center = image_width // 2
+    y_center = image_height // 2
+    x1_centered = x_center - box_width // 2
+    y1_centered = y_center - box_height // 2
+    x2_centered = x_center + box_width // 2
+    y2_centered = y_center + box_height // 2
+
+    # Dibujar bounding box centrado
+    draw.rectangle([x1_centered, y1_centered, x2_centered, y2_centered], fill=255)
 
     for text_input in text_inputs:
         print(time.strftime('%Y-%m-%d %H:%M:%S'), f'Start processing text input: {text_input}')
