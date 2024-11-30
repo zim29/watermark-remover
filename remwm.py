@@ -44,7 +44,7 @@ def run_example(task_prompt: TaskType, image, text_input, model, processor, devi
     return parsed_answer
 
 
-def get_watermark_mask(image, model, processor, device, text_inputs):
+def get_watermark_mask(image, model, processor, device, text_inputs, image_name):
     print(time.strftime('%Y-%m-%d %H:%M:%S'), 'Starting watermark mask generation...')
     task_prompt = TaskType.OPEN_VOCAB_DETECTION  # Use OPEN_VOCAB_DETECTION
     mask = Image.new("L", image.size, 0)  # "L" mode for single-channel grayscale
@@ -183,7 +183,8 @@ def main():
 
         # Generate watermark mask
         print(time.strftime('%Y-%m-%d %H:%M:%S'), "Generating watermark mask...")
-        mask_image = get_watermark_mask(image, florence_model, florence_processor, device, text_inputs)
+        image_name = os.path.basename(image_path)
+        mask_image = get_watermark_mask(image, florence_model, florence_processor, device, text_inputs, image_name)
         continue
         # Process image with LaMa
         print(time.strftime('%Y-%m-%d %H:%M:%S'), "Processing image to remove watermarks...")
