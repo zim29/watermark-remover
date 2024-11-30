@@ -97,7 +97,7 @@ def get_watermark_mask(image, model, processor, device, text_inputs):
 def process_image_with_lama(image, mask, model_manager):
     print(time.strftime('%Y-%m-%d %H:%M:%S'), 'Starting image processing with LaMa...')
     config = Config(
-        ldm_steps=150,  # Increased steps for higher quality
+        ldm_steps=50,  # Increased steps for higher quality
         ldm_sampler=LDMSampler.ddim,
         hd_strategy=HDStrategy.CROP,  # Use CROP strategy for higher quality
         hd_strategy_crop_margin=64,  # Increase crop margin to provide more context
